@@ -97,5 +97,79 @@ This allows you to have more significant interaction, reconnasaince, and informa
 ![web-requests-1](web-requests-1.png)
 ![web-requests-2](web-requests-2.png)
 ![web-requests-3](web-requests-3.png)
+
+```curl -A "custom-user-agent" -v https://inlanefreight.com```
 # HTTP Methods
 
+# Methods and Codes
+
+Methods are used to specify what a request does: Grabbing a webpage, posting data, etc. Response codes are used to specify how the request was handled: satisfied, wrong request, redirect, etc.
+
+![web-requests-4](web-requests-4.png)
+
+## GET 
+
+GET requests grab a webpage. Sometimes, they can require authentication.
+
+```curl -u admin:admin amazon.com:7070```
+
+```curl admin:admin@amazon.com:7070```
+
+Tries to grab the webpage with basic authentication admin:admin. We can use -u or specify it in the url. These are stored in the authorization header, which is a base64 encoded value of the credentials (admin:admin).
+
+You can grab requests in devtools, copy them ot a curl command, and execute the curl command in your terminal. This is convenient.
+
+```curl -v "http://admin:admin@167.172.52.160:32532/search.php?search=flag"```
+
+Covers basic auth, post, and most of what we've covered.
+
+## POST
+
+POST requests are usually used to move significant amounts of data to a server, such as files. They require less logging, less encoding, and less overhead.
+
+To solve the challenge here, we login with admin:admin to grab a valid cookie ID. We then specify a few other options: it's a post request, with a content type json header, and a json in {"search":"flag"},
+
+```curl -X POST -d '{"search":"flag"}' -b 'PHPSESSID=p62bamllihv2kard82pv3qntmr' -H 'Content-Type: application/json' http://209.97.134.177:30734/search.php -v```
+
+## API/CRUD API
+
+An API, or application programming interface, APIs are primarily uses to interact with a database. 
+
+The CRUD API can perform various operations: Create, Read, Update, Delete, and so on.
+
+We can use curl to submit API requests.
+
+```curl http://<SERVER_IP>:<PORT>/api.php/city/london```
+
+Will tell api.php to look in the "database" for cities, and return the "entry" for London. We can pipe this command to jq, such that the data it returns is loaded properly
+
+```curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq```
+
+```
+[
+  {
+    "city_name": "London",
+    "country_name": "(UK)"
+  }
+]
+```
+
+We can also mess with the last part of the request, such as changing "london" to "lon", which will return every city with "lon" in the name.
+
+Most importantly, passing an empty string will return the entire table.
+
+```curl -s http://<SERVER_IP>:<PORT>/api.php/city/ | jq```
+
+In the same vein, we can use this to upload data to the table like so:
+
+```curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_name":"HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'```
+
+We can also update and delete entries.
+
+The goal here is to change a city name to flag, then delete a city, then read a city with name flag.
+
+```curl -X PUT "http://188.166.154.164:31042/api.php/city/derby" -d '{"city_name":"flag"}' -H 'Content-Type: application/json'```
+
+```curl -X DELETE "http://188.166.154.164:31042/api.php/city/Manchester"```
+
+```curl -s "http://188.166.154.164:31042/api.php/city/" -v | grep flag```
