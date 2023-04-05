@@ -233,3 +233,17 @@ Malicious File Upload (PHP Backdoor)
 Command Injection,
 
 SQL injection,
+
+and other OWASP top 10
+
+## Public Web Vulnerabilities
+
+Exploit databases such as RapidDB, ExploitDB, and Vulnerability Lab provide an easy avenue to look for exploits, especially when we have a specific version number.
+
+We care the most about vulnerabilities that lead to RCE, or remote code execution.
+
+CVSS is the standard of "scoring" the danger of a vulnerability.
+
+## Backend server vulnerabilities
+
+A web server can be inherently vulnerable (see apache2 shell shock vulnerability).
