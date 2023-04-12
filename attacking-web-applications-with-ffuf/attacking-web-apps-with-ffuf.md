@@ -76,7 +76,7 @@ This fuzzes for a GET parameter (which exists in the url). We run it for a littl
 
 POST requests are not passed in URL, they are passed in the data field of a HTTP request. We can use -d to specify the fuzzing of the data field.
 
-```ffuf -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'FUZZ=key' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx``` 
+```ffuf -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://faculty.academy.htb:31885/courses/linux-security.php7?FUZZ=key -X POST -d 'FUZZ=key' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx``` 
 
 To determine the parameter name, and
 
@@ -90,3 +90,5 @@ To iterate through parameters.
 We can capture a request in Burpsuite and mofiy it, or we can use curl to get a request with the content we want
 
 ## Skills Assessment
+
+```ffuf -w ids.txt:FUZZ -u http://faculty.academy.htb:31885/courses/linux-security.php7 -X POST -d 'user=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'```
