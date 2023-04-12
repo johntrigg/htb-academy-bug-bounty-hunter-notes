@@ -72,5 +72,21 @@ Some parameters for a webpage might exist but be hidden, so fuzzing for them is 
 
 This fuzzes for a GET parameter (which exists in the url). We run it for a little while, and then filter out the default response size.
 
+## POST Parameter Fuzzing
 
+POST requests are not passed in URL, they are passed in the data field of a HTTP request. We can use -d to specify the fuzzing of the data field.
 
+```ffuf -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'FUZZ=key' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx``` 
+
+To determine the parameter name, and
+
+## Value Fuzzing
+```ffuf -w ids.txt:FUZZ -u http://admin.academy.htb:31507/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'```
+
+To iterate through parameters.
+
+```curl http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=key' -H 'Content-Type: application/x-www-form-urlencoded'```
+
+We can capture a request in Burpsuite and mofiy it, or we can use curl to get a request with the content we want
+
+## Skills Assessment
