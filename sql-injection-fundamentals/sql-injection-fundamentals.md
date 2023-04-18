@@ -278,7 +278,7 @@ Incrementing by one each time,
 ```
 ' order by 6-- -
 ```
-Gives us an error. Therfore, there are 6 columns present in the table we are querying.
+Gives us an error. Therfore, there are 5 columns present in the table we are querying.
 
 ```
 cn' UNION SELECT 1, 2, 3, 4, 5-- -
