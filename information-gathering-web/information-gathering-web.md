@@ -89,10 +89,14 @@ nslookup -type=any -query=AXFR zonetransfer.me nsztm1.digi.ninja
 Skills Assessment
 
 To find the FQDN of the ns for inlanefreight.htb
-```nslookup -type=any inlanefreight.htb 10.129.101.151```
+```nslookup -type=any inlanefreight.htb 10.129.58.5```
 
-```nslookup -query=AXFR inlanefreight.htb 10.129.101.151```
+```nslookup -query=AXFR inlanefreight.htb 10.129.58.5```
 
 To find the TXT record, query all of the given subdomains, until we find the correct one
 
 ```nslookup -query=TXT internal.inlanefreight.htb 10.129.101.151```
+
+```
+dig a inlanefreight.htb ns.inlanefreight.htb
+```
